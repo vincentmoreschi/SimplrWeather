@@ -28,3 +28,13 @@ p{
   align-items: center;
   
 }
+.error{
+  background-color: firebrick;
+  display: flex;
+  align-items: center;
+}
+.success{
+  background-color: green;
+  display: flex;
+  align-items: center;
+}

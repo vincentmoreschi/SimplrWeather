@@ -2,9 +2,10 @@
 import React from 'react';
 
 
-function temperature({temp}) {
+function temperature({location}) {
     return (
-        <div>{temp}</div>
+        
+        <div>{location}: 81 Degrees</div>
       );  
 }
 
