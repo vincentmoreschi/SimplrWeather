@@ -1,12 +1,12 @@
 //import logo from './logo.svg';
 import './App.css';
-import {useState, useEffect} from 'react';
-import getTemperature from'./components/getTemperature';
+// import {useState, useEffect} from 'react';
+// import getTemperature from'./components/getTemperature';
 import WeatherForm from './components/WeatherForm'
-
-
+import DisplayWeather from './components/DisplayWeather'
+import {useState} from 'react';
 function App() {
-
+  const [isValid, SetisValid] = useState();
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +16,7 @@ function App() {
         {/* render location input */}
         <WeatherForm isValid={isValid}/>
         {/* if location is valid render weather box */}
-        
+        {/* <DisplayWeather isValid={isValid}/> */}
       </header>
     </div>
   );
