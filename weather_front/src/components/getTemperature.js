@@ -2,11 +2,11 @@
 import React from 'react';
 
 
-function Temperature({temp}) {
+function temperature({temp}) {
     return (
         <div>{temp}</div>
       );  
 }
 
 
-export default Temperature;
+export default temperature;
