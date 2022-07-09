@@ -2,6 +2,8 @@ import React from 'react';
 //import getTemperature from './getTemperature';
 import {Error, Success} from './Alert'
 import Temperature from './getTemperature';
+import Historical from './getHistorical';
+import SevenDay from './displaySevenday';
 class WeatherForm extends React.Component {
     constructor(props, isValid) {
       console.log(isValid)
@@ -9,22 +11,42 @@ class WeatherForm extends React.Component {
       
       this.state = {
        value:'',
-       isValid: ''
+       isValid: '',
+       showOptions: false,
+       optionsClicked: false,
+       location:''
       };
       
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleForecastClick = this.handleForecastClick.bind(this);
+      this.handleHistoricalClick = this.handleHistoricalClick.bind(this);
     }
+    
+    handleForecastClick() {
+      
+      this.setState({optionsClicked: true});
+
+    }
+  
+    handleHistoricalClick() {
+      this.setState({optionsClicked: false});
+    }
+
+
     // when changed set new value
     handleChange(event) {
       this.setState({value: event.target.value});
+      
     }
     // when submit button is pressed check to see if its valid
+    
     handleSubmit(event) {
-      this.setState({value: event.target.value});
-      if(typeof this.state.value === 'string'){
-        
+
+      if(typeof this.state.value === 'string' && isNaN(this.state.value)){
         this.setState({isValid: true})
+        this.setState({showOptions: true})
+        this.setState({location:this.state.value})
       }else{
         this.setState({isValid: false})
       }
@@ -35,15 +57,25 @@ class WeatherForm extends React.Component {
       // if isValid has been set to true print a success and render the weather data
       let alertMessage = null;
       let weather = null
+      let forecast = null
+      let historical = null
       if(this.state.isValid){
         alertMessage = <Success message={"Valid"}></Success>
-        weather = <Temperature location={"test"}></Temperature>
+        weather = <Temperature location={this.state.location}></Temperature>
         
       }
       // give feed back to user as to what caused the issue
       if(this.state.isValid === false){
         alertMessage = <Error message={"Invalid location"}></Error>
-        console.log(this.state.value)
+       
+      }
+      if(this.state.optionsClicked){
+        forecast = <SevenDay></SevenDay>
+        historical = null
+      }
+      if(this.state.optionsClicked){
+        forecast = null
+        historical = <Historical></Historical>
       }
       return (
         // location submit container
@@ -54,9 +86,13 @@ class WeatherForm extends React.Component {
         onChange={this.handleChange}/> <button onClick={this.handleSubmit}>Submit</button>
         {alertMessage}
         </div>
-        <div className="container">
-            {weather}
-        </div>
+          {weather}
+          <div className='container'>
+            <HistoricalButton onClick={this.handleHistoricalClick} show={this.state.showOptions}></HistoricalButton>
+            <ForecastButton onClick={this.handleForecastClick} show={this.state.showOptions}></ForecastButton>
+          </div>
+          {forecast}
+          {historical}
         </>
         
       );
@@ -64,4 +100,26 @@ class WeatherForm extends React.Component {
     }
  
   }
+  function ForecastButton(props) {
+    if (!props.show) {
+      return null;
+    }
+    return (
+      <button onClick={props.onClick}>
+        7-Day Forecast
+      </button>
+    );
+  }
+  
+  function HistoricalButton(props) {
+    if (!props.show) {
+      return null;
+    }
+    return (
+      <button onClick={props.onClick}>
+        Historical
+      </button>
+    );
+  }
+
   export default WeatherForm;

@@ -29,11 +29,13 @@ p{
   
 }
 .error{
+  font-size: small;
   background-color: firebrick;
   display: flex;
   align-items: center;
 }
 .success{
+  font-size: small;
   background-color: green;
   display: flex;
   align-items: center;
