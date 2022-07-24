@@ -1,0 +1,54 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.routeguide";
+option java_outer_classname = "RouteGuideProto";
+option objc_class_prefix = "RTG";
+import "google/protobuf/any.proto";
+
+package routeguide;
+service RouteGuide {
+    rpc GetHistoricalData(LocationDate) returns (HistoricalData){}
+
+    rpc GetUnixTime(Date) returns (UnixTime){}
+}
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message LocationDate{
+    int32 latitude = 1;
+    int32 longitude = 2;
+    // Year of the date. Must be from 1 to 9999, or 0 to specify a date without
+    // a year.
+    int32 year = 3;
+
+    // Month of a year. Must be from 1 to 12, or 0 to specify a year without a
+    // month and day.
+    int32 month = 4;
+
+    // Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
+    // to specify a year by itself or a year and month where the day isn't
+    // significant.
+    int32 day = 5;
+}
+message Date{
+  // Year of the date. Must be from 1 to 9999, or 0 to specify a date without
+  // a year.
+  int32 year = 1;
+
+  // Month of a year. Must be from 1 to 12, or 0 to specify a year without a
+  // month and day.
+  int32 month = 2;
+
+  // Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
+  // to specify a year by itself or a year and month where the day isn't
+  // significant.
+  int32 day = 3;
+}
+
+message UnixTime{
+    int32 unixtime=1;
+}
+
+message HistoricalData{
+    string data = 1;
+}

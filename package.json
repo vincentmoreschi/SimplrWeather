@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.6.8",
+    "fetch": "^1.1.0",
+    "node-fetch": "^3.2.9"
+  }
+}

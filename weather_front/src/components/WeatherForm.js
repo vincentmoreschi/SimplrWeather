@@ -2,11 +2,13 @@ import React from 'react';
 //import getTemperature from './getTemperature';
 import {Error, Success} from './Alert'
 import Temperature from './getTemperature';
-import Historical from './getHistorical';
-import SevenDay from './displaySevenday';
+import GetDate from './HistoricalData';
+
+
 class WeatherForm extends React.Component {
+      
     constructor(props, isValid) {
-      console.log(isValid)
+      
       super(props);
       
       this.state = {
@@ -19,18 +21,18 @@ class WeatherForm extends React.Component {
       
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleForecastClick = this.handleForecastClick.bind(this);
       this.handleHistoricalClick = this.handleHistoricalClick.bind(this);
     }
     
-    handleForecastClick() {
-      
-      this.setState({optionsClicked: true});
 
-    }
   
     handleHistoricalClick() {
-      this.setState({optionsClicked: false});
+      
+      if(!this.state.optionsClicked){
+        this.setState({optionsClicked: true});
+      }else{
+        this.setState({optionsClicked: false});
+      }
     }
 
 
@@ -57,7 +59,6 @@ class WeatherForm extends React.Component {
       // if isValid has been set to true print a success and render the weather data
       let alertMessage = null;
       let weather = null
-      let forecast = null
       let historical = null
       if(this.state.isValid){
         alertMessage = <Success message={"Valid"}></Success>
@@ -70,12 +71,10 @@ class WeatherForm extends React.Component {
        
       }
       if(this.state.optionsClicked){
-        forecast = <SevenDay></SevenDay>
-        historical = null
+        historical = <GetDate></GetDate>
       }
-      if(this.state.optionsClicked){
-        forecast = null
-        historical = <Historical></Historical>
+      if(!this.state.optionsClicked){
+        historical = null
       }
       return (
         // location submit container
@@ -88,27 +87,17 @@ class WeatherForm extends React.Component {
         </div>
           {weather}
           <div className='container'>
-            <HistoricalButton onClick={this.handleHistoricalClick} show={this.state.showOptions}></HistoricalButton>
-            <ForecastButton onClick={this.handleForecastClick} show={this.state.showOptions}></ForecastButton>
+            <HistoricalButton onClick={this.handleHistoricalClick} show={this.state.showOptions}></HistoricalButton>         
           </div>
-          {forecast}
+
           {historical}
+          
         </>
         
       );
      
     }
  
-  }
-  function ForecastButton(props) {
-    if (!props.show) {
-      return null;
-    }
-    return (
-      <button onClick={props.onClick}>
-        7-Day Forecast
-      </button>
-    );
   }
   
   function HistoricalButton(props) {
@@ -121,5 +110,7 @@ class WeatherForm extends React.Component {
       </button>
     );
   }
+
+
 
   export default WeatherForm;

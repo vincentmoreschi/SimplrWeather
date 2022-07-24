@@ -17,6 +17,7 @@ function App() {
         <WeatherForm isValid={isValid}/>
         {/* if location is valid render weather box */}
         {/* <DisplayWeather isValid={isValid}/> */}
+        
       </header>
     </div>
   );
