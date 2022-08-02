@@ -30,8 +30,6 @@ async function getData(locdate){
     let date= {year:locdate.year,month:locdate.month,day:locdate.day}
     
     
-    // console.log(dt)
-    
     const response = await fetch(`http://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${latitude}&lon=${longitude}&dt=${ConvertToUnix(date)}&appid=`);
     let data = await response.text();
     console.log(data)
