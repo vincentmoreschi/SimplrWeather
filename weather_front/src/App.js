@@ -2,8 +2,7 @@
 import './App.css';
 // import {useState, useEffect} from 'react';
 // import getTemperature from'./components/getTemperature';
-import WeatherForm from './components/WeatherForm'
-import DisplayWeather from './components/DisplayWeather'
+import WeatherForm from './components/WeatherForm.js'
 import {useState} from 'react';
 function App() {
   const [isValid, SetisValid] = useState();

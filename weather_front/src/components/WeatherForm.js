@@ -1,9 +1,9 @@
 import React from 'react';
 //import getTemperature from './getTemperature';
-import {Error, Success} from './Alert'
-import Temperature from './getTemperature';
-import GetDate from './HistoricalData';
-
+import {Error, Success} from './Alert.js'
+import Temperature from './getTemperature.js';
+import GetDate from './HistoricalData.js';
+import getLocation from '../OpenWeatherClient.js';
 
 class WeatherForm extends React.Component {
       
@@ -49,6 +49,7 @@ class WeatherForm extends React.Component {
         this.setState({isValid: true})
         this.setState({showOptions: true})
         this.setState({location:this.state.value})
+        // console.log(getLocation(this.state.value))
       }else{
         this.setState({isValid: false})
       }
